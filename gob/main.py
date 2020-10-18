@@ -10,6 +10,4 @@ def cli(ctx):
 @cli.command()
 @click.argument('path', type=click.Path(), default=".")
 def init(path):
-    if not path:
-        path = "."
     Repository.create(path)
