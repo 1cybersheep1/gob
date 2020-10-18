@@ -1,11 +1,15 @@
 import click
 
+from gob.repository import Repository
 
 @click.group()
 @click.pass_context
 def cli(ctx):
-    click.echo('I am about to invoke %s' % ctx.invoked_subcommand)
+    pass
 
 @cli.command()
-def sync():
-    click.echo('The subcommand')
+@click.argument('path', type=click.Path(), default=".")
+def init(path):
+    if not path:
+        path = "."
+    Repository.create(path)
