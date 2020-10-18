@@ -35,6 +35,19 @@ class Repository:
         return config
 
     @classmethod
+    def find(cls, path):
+        path = Path(path)
+
+        if (path / ".git").is_dir():
+            return Repository(path)
+
+        parent = path.parent.absolute()
+        if path == parent:
+            raise ClickException("No repository found!")
+
+        return cls.find(parent)
+
+    @classmethod
     def create(cls, path):
         path = Path(path)
         
